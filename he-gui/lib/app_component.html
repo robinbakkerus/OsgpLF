@@ -1,0 +1,35 @@
+<header>
+  <h1>{{title}}</h1>
+</header>
+<div id='main'>
+  <article>
+    <router-outlet></router-outlet>
+  </article>
+  <nav>
+    <ul style="list-style-type:none">
+      <li>
+        <material-fab raised (trigger)="showJobs()"
+            id="btn2" aria-label="Jobs"> <glyph icon="list"></glyph>
+        </material-fab>
+      </li>
+
+      <li>
+        <material-fab raised (trigger)="showRecipes()"
+            id="btn1" aria-label="Recipe"> <glyph icon="assignment"></glyph>
+        </material-fab>
+      </li>
+      <li>
+        <material-fab raised
+            id="btn3" aria-label="Group"> <glyph icon="theaters"></glyph>
+        </material-fab>
+      </li>
+      <li>
+        <material-fab raised
+            id="btn41" aria-label="Filter"> <glyph icon="visibility"></glyph>
+        </material-fab>
+      </li>
+    </ul>
+  </nav>
+  <!-- <aside>aside</aside> -->
+</div>
+<footer>footer</footer>

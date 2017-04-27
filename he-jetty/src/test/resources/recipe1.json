@@ -1,0 +1,15 @@
+{
+  "id": "1",
+  "name": "Recipe 1",
+  "actions": [{
+    "requestType": "GET_CONFIGURATION",
+    "getConfigurationMsg": {
+    }
+  }, {
+    "requestType": "FINDEVENTS",
+    "findEventsMsg": {
+      "category": "M_BUS_EVENT_LOG",
+      "eventsFrom": "1487405065126"
+    }
+  }]
+}

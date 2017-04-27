@@ -1,0 +1,16 @@
+<div>
+  Action {{getDlmsAction()}}
+
+  <div *ngIf="showDetailAction('FindEventsActionMsg')">
+    <find-events-dialog (closeActionDialogEvent)=closeActionDialog()
+      [action]="getDlmsAction()">...</find-events-dialog>
+  </div>
+  <div *ngIf="showDetailAction('GetActualMeterReadsActionMsg')">
+    <empty-msg-dialog [dlmsAction]="getDlmsAction()">...</empty-msg-dialog>
+  </div>
+  <div *ngIf="showDetailAction('LoadProfileActionMsg')">
+    <load-profile-dialog (closeActionDialogEvent)=closeActionDialog()
+      [action]="getDlmsAction()">...</load-profile-dialog>
+  </div>
+
+</div>

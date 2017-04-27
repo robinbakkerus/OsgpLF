@@ -1,0 +1,36 @@
+name: he_gui
+description: A Dart app that uses Angular 2
+version: 0.0.1
+environment:
+  sdk: '>=1.19.0 <2.0.0'
+dependencies:
+  angular2: ^2.2.0
+  angular2_components: ^0.2.0
+  http: ^0.11.0
+  stream_transformers: ^0.3.0
+  intl: ^0.14.0
+  polymer: '>=0.12.1 <0.17.0'
+  quiver: '>=0.18.2 <0.25.0'
+  quiver_log: '>=1.0.1 <2.0.0'
+  bwu_utils_browser: '>=0.0.2 <0.1.0'
+  bwu_datagrid: any
+#    path: /my-dev/ide/dart/my-pub/bwu_datagrid/
+
+  #js: ">=0.6.0 <0.7.0"
+  #bootjack_datepicker: any
+  #google_charts: any
+ 
+
+dev_dependencies:
+  browser: ^0.10.0
+  dart_to_js_script_rewriter: ^1.0.1
+transformers:
+- angular2:
+    platform_directives:
+    - 'package:angular2/common.dart#COMMON_DIRECTIVES'
+    platform_pipes:
+    - 'package:angular2/common.dart#COMMON_PIPES'
+    entry_points: web/main.dart
+    resolved_identifiers:
+        BrowserClient: 'package:http/browser_client.dart'
+        Client: 'package:http/http.dart'

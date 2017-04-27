@@ -1,0 +1,71 @@
+<h2>Add Job</h2>
+
+<div>
+  <div class="label">Name:</div>
+    <material-input [(ngModel)]="job.name" class="c1" placeholder="name"></material-input>
+    <div [ngClass]="nameClass()"></div><br>
+
+  <div class="label">Recipe:</div> <material-input label="Recipe"
+    [(ngModel)]="job.recipe" class="c1"
+   (click)="toggleShowRecipes()" ></material-input>
+   <div [ngClass]="recipeClass()"></div>
+
+  <!-- actions -->
+  <h3>Actions</h3>
+  <div *ngFor="let dlmsAction of job.actions" (click)="editAction(dlmsAction)" >
+      <div class="lm10"></div>
+      <div class="action"> {{dlmsAction.action.description()}} </div>
+      <div [ngClass]="actionClass(dlmsAction)"></div>
+  </div>
+  <br />
+
+  <div class="label">Group:</div>
+    <material-input label="Group" [(ngModel)]="job.deviceGroup" class="c1"
+    (click)="toggleShowGroups()"></material-input>
+    <div [ngClass]="groupClass()"></div><br>
+
+  <div class="label">Filter:</div>
+    <material-input label="Filter" [(ngModel)]="job.deviceGroup" class="c1"
+    disabled (click)="toggleShowGroups()"></material-input><br>
+
+  <!-- submit -->
+  <material-radio-group>
+    <material-radio [checked]="startDirect">Start immediately
+    </material-radio> <br />
+    <material-radio>Schedule job
+    </material-radio>
+  </material-radio-group>
+  <br />
+  <material-button id="btnCancel" class="blue" (trigger)="cancel()"> Cancel </material-button>
+  <material-button id="btnStart" [disabled]="disableStartBtn()" class="blue"
+    (trigger)="startJob()">Submit Job </material-button>
+</div>
+
+<modal [visible]="showEditTask">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <my-action (closeActionDialogEvent)=closeActionDialog() [dlmsAction]="selectedAction">...</my-action>
+  </material-dialog>
+</modal>
+
+
+<modal [visible]="showRecipes">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <ul class="no-bullet">
+        <li *ngFor="let recipe of recipes" >
+          <button type="button" on-click="selectRecipe(recipe)"raised >
+            {{recipe.name}}
+          </button>
+        </li>
+    </ul>
+  </material-dialog>
+</modal>
+
+<modal [visible]="showGroups">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <ul class="no-bullet">
+        <li *ngFor="let grp of deviceGroups" >
+          <button type="button" on-click="selectGroup(grp)">{{grp.name}}</button>
+        </li>
+    </ul>
+  </material-dialog>
+</modal>

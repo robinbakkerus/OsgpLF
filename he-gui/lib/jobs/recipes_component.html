@@ -1,0 +1,14 @@
+<h2>Recipies</h2>
+
+<material-fab raised (trigger)="addRecipe()" class="fab-add"  >
+     <glyph icon="add"></glyph>
+</material-fab>
+
+<ul class="jobs">
+  <li *ngFor="let recipe of recipes" (click)="onSelect(recipe)"
+      [class.selected]="recipe === selectedRecipe">
+    <span class="badge">{{recipe.id}}</span>
+    <span>{{recipe.name}}</span>
+    <span>{{recipe.creationTime | int_to_date}}</span>
+  </li>
+</ul>

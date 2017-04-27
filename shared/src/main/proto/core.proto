@@ -1,0 +1,222 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.alliander.osgp.shared";
+option java_outer_classname = "Osgp2Proto";
+//option objc_class_prefix = "HLW";
+
+package osgp2;
+
+service OsgpService {
+	rpc HandleRequest (stream RequestResponseMsg) returns (AckMsg) {}
+	rpc HandleResponse (stream RequestResponseMsg) returns (AckMsg) {}
+	rpc HandleRequestList (RequestResponseListMsg) returns (AckMsg) {}
+	rpc HandleResponseList (RequestResponseListMsg) returns (AckMsg) {}
+	rpc GetResponse (CorrelIdMsg) returns (RequestResponseMsg) {}
+	rpc GetReadyResponses (AckMsg) returns (ResponsesMsg) {}
+	rpc Ping(AckMsg) returns (AckMsg) {}
+	rpc GetStatistics (RequestStatsMsg) returns (StatsMsg) {}
+	rpc InitStatistics (AckMsg) returns (AckMsg) {}
+}
+
+service AuditTrailService {
+	rpc SaveAuditTrail (stream RequestResponseMsg) returns (AckMsg) {}
+	rpc Ping(AckMsg) returns (AckMsg) {}
+}
+
+service NotificationService {
+	rpc HandleNotification (NotificationMsg) returns (AckMsg) {}
+	rpc Ping(AckMsg) returns (AckMsg) {}
+}
+
+// the generic bundle request/response
+message RequestResponseMsg {
+	string correlId  = 1;
+	CommonMsg common = 2;
+	DeviceMsg device = 3;
+	ActionMsg action = 4;
+	ResponseMsg response = 5;
+	FlowMsg flow = 6; 
+}
+
+message RequestResponseListMsg {
+	repeated RequestResponseMsg requestResponses = 1;
+}
+
+message ActionMsg {
+	oneof value {
+		AddDeviceActionMsg addDevice = 1;
+		UpdateFirmwareActionMsg updateFirmware = 2;
+		ProtocolSpecificMsg protocolSpecific = 3;
+	}
+}
+
+enum ResponseStatus {
+	NOT_SET = 0;
+	OK = 1;
+ 	NOT_OK = 2;
+ 	OK_WITH_ERRORS = 3;
+ 	CREATED = 4;
+ 	ACCEPTED = 5;
+ 	SUBMITTED = 6;
+ }
+
+message AckMsg {
+	string status = 1;
+}
+
+message CorrelIdMsg {
+	string correlid = 1;
+}
+
+enum FlowPhase {
+	NEW = 0;
+	PF_REQ_IN = 1;
+	PF_REQ_OUT = 2;
+	PF_RESP_IN = 3;
+	CORE_REQ_IN = 4;
+	CORE_REQ_OUT = 5;
+	CORE_RESP_IN = 6;
+	CORE_RESP_OUT = 7;
+	PA_REQ_IN = 8;
+	PA_RESP_OUT = 9;
+}
+
+message FlowMsg {
+	repeated FlowPhaseMsg flowPhases = 1;
+}
+
+message FlowPhaseMsg {
+	int64 date = 1;
+	FlowPhase phase = 2;
+}
+
+message CommonMsg {
+	string organisation = 1;
+	string userName = 2;
+	string deviceId = 3;
+	string protocol = 4; //example 'dlms'
+	string applicationName = 5;
+	int32  messagePriority = 6;
+	int64  scheduleTime = 7; 
+	bool   retry = 8;
+	int32  retryCount = 9;
+	int64 jobId = 10;
+ }
+
+// the async response message that can be retrieved with the correl-id
+message  ResponseMsg {
+	string action = 1;
+	ResponseStatus status = 2;
+	repeated ResponseValuesMsg values = 3;
+}
+
+enum ResponseValuesType {
+	GENERIC_RESPONSE_VALUES = 0;
+}
+
+message ResponseValuesMsg {
+	string code = 1;
+	string action = 2;
+	ResponseStatus status = 3;
+	ResponseValuesType responseValuesType = 4;
+	repeated PropMsg properties = 5;
+	bytes raw = 6;
+}
+
+enum PropMsgType {
+	DEFAULT = 0;
+	STRING = 1;
+	INT = 2;
+	REAL = 3;
+	DATE = 4;
+	TEXT = 5;
+	BOOL = 6;
+}
+
+message PropMsg {
+	string key = 1;
+	PropMsgType type = 2;
+	string value = 3;
+	string units = 4;
+}
+
+// the response for each request item
+message ActionResponseMsg {
+	string response = 1;
+	string errormsg = 2;
+}
+
+// Device
+message DeviceMsg {
+	string deviceId = 1;
+	bool activated = 2;
+	int32 lat = 3;
+	int32 lng = 4;
+	string networkAddress = 5;
+	string protocol = 6;
+	string organisations = 7;
+	string gatewayDevice = 8;
+	int32 channel = 9;
+	//etc
+}
+
+// --- Statistics ---
+
+message RequestStatsMsg {
+}
+
+message StatsMsg {
+	string name = 1;
+	int32 prevCount = 2;
+	StatDetailsMsg requests = 3;
+	StatDetailsMsg responses = 4;
+	int64 resetTime = 5;
+	int32 errCount = 6;
+	int32 retryCount = 7;
+}
+ 
+message StatDetailsMsg {
+	int64 firstInTimestamp = 1;
+	int64 lastInTimestamp = 2;
+	int64 prevInTimestamp = 3; //to calc the between the last prevCount messages
+	int32 inCount = 4;
+	int64 firstOutTimestamp = 5;
+	int64 lastOutTimestamp = 6;
+	int64 prevOutTimestamp = 7;
+	int32 outCount = 8;
+}
+ 
+//-- Actions --
+
+message AddDeviceActionMsg {
+	ProtocolSpecificMsg protocolSpecific = 1;
+}
+
+message UpdateFirmwareActionMsg {
+	ProtocolSpecificMsg protocolSpecific = 1;
+}
+
+message ProtocolSpecificMsg {
+	bytes raw = 1;
+}
+
+message NotificationMsg {
+	NotificationType type = 1;
+	bytes raw = 2;
+}
+
+enum NotificationType {
+	UNDEFINED = 0;
+	RESPONSE_AVAILABLE = 1;
+}
+
+message GetReadyResponsesMsg {
+	string organisation = 1;
+	int32 jobId = 2;
+} 
+
+message ResponsesMsg {
+	repeated RequestResponseMsg responses = 1;
+}

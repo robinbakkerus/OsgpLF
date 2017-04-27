@@ -1,0 +1,38 @@
+<h2 class="w100">Job Device operation detail </h2>
+
+<div class="table" >
+  <div class="header">
+    <div class="row">
+      <div class="col deviceId">Device name</div>
+      <div class="col status">Status</div>
+      <div class="col correlId">Correl id</div>
+    </div>
+  </div>
+  <div class="content" >
+    <div *ngFor="let devop of job.devops" class="row" (click)="onSelect(devop)"
+        [class.selected]="devop === selectedDevOp">
+      <div class="col deviceId">{{devop.deviceId}}</div>
+      <div class="col status">{{devop.status}}</div>
+      <div class="col correlId">{{devop.correlId}}</div>
+      <material-ripple></material-ripple>
+    </div>
+  </div>
+</div>
+
+<modal [visible]="showActions">
+  <material-dialog class="basic-dialog" hideHeader="true" hideFooter="true">
+
+    <div *ngIf="selectedDevOp != null">
+        <my-devop-detail [devop]="selectedDevOp">...</my-devop-detail>
+    </div>
+
+    <div>
+      <material-button autoFocus color="blue"
+                       (trigger)="showActions = false"
+                       class="blue">
+        Close
+      </material-button>
+    </div>
+
+  </material-dialog>
+</modal>

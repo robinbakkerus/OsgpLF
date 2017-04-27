@@ -1,0 +1,19 @@
+{
+  name: "new recipe", 
+  creationTime: 1487405281035, 
+  modificationTime: null, 
+  actions: [{
+  	requestType: FINDEVENTS, 
+  	findEventsMsg: {
+  		category: null, 
+  		eventsFrom: null, 
+  		eventsUntil: null
+  		}
+  	},{
+  	requestType: GET_CONFIGURATION, 
+  	getConfigurationMsg: {
+  	}
+   }]
+ }
+ 
+ 

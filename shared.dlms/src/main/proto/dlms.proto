@@ -1,0 +1,125 @@
+
+syntax = "proto3";
+
+import "core.proto";
+
+option java_multiple_files = true;
+option java_package = "com.alliander.osgp.dlms";
+option java_outer_classname = "Osgp2Proto";
+option objc_class_prefix = "HLW";
+
+package osgp2;
+
+
+message DlmsSpecificMsg {
+	repeated DlmsActionMsg actions = 1;
+}
+
+message DlmsDevOperMsg {
+	CommonMsg common = 1;
+	DlmsActionMsg action = 2;
+}
+
+enum RequestType {
+	NULL_REQUEST_TYP = 0;
+	GET_CONFIGURATION = 1;
+	FINDEVENTS = 2;
+	GET_SPECIFIC_OBJECT = 3;
+	GET_ACTUAL_METER_READS = 4;
+	GET_FIRMWARE_VERSION = 5;
+	PROFILE_GENERIC_DATA = 6;
+}
+
+
+message DlmsActionMsg {
+	ResponseValuesMsg response = 1;
+	RequestType requestType = 2;
+	
+	oneof value {
+		EmptyMsg getConfigurationMsg = 3;
+		FindEventsMsg findEventsMsg = 4;
+		GetSpecificObjectMsg getSpecificObjectMsg = 5;
+		EmptyMsg getActualMeterReadMsg = 6;
+		EmptyMsg getFirmwareVersionMsg = 7;
+		ProfileGenericDataMsg profileGenericDataMsg = 8;
+	}
+}
+
+message ObisCodeMgs {
+	int32 a = 1;
+	int32 b = 2;
+	int32 c = 3;
+	int32 d = 4;
+	int32 e = 5;
+	int32 f = 6;
+}
+ 
+//--- Dlms tables
+message DlmsDeviceMsg {
+  string identification = 1;
+  int64 createdAt = 2;
+  int64 modifiedAt = 3;
+  int32 version = 4;
+  string icc_id = 5;
+  string comProvider = 6;
+  string comMethod = 7;
+  bool hls3active = 8;
+  bool hls4active = 9;
+  bool hls5active = 10;
+  int32 challLen = 11;
+  bool listSupp = 12;
+  bool selcAccess = 13;
+  bool staticIp = 14;
+  int32 port = 15;
+  int32 clientDd = 16;
+  int32 logicalId = 17;
+  repeated SecurityKeyMsg securityKeys = 18;
+}
+
+message SecurityKeyMsg {
+  int64 createdAt = 1;
+  int64 modifiedAt = 2;
+  int64 validFrom = 3;
+  int64 validTo = 4;
+  
+  enum SecurityKeyType {
+  		NULL_KEY = 0;
+		MASTER_KEY = 1;
+    	AUTH_KEY = 2;
+	    ENC_KEY = 3;
+  }
+  SecurityKeyType keyType = 5;
+  string key = 6;
+}
+
+//----The specific actions	------
+message EmptyMsg {
+}
+
+message FindEventsMsg {
+	enum EventLogCatgory {
+		NULL_EVENT_LOG = 0;
+		STANDARD_EVENT_LOG = 1;
+    	FRAUD_DETECTION_LOG = 2;
+	    COMMUNICATION_SESSION_LOG = 3;
+    	M_BUS_EVENT_LOG = 4;
+	}
+	
+	EventLogCatgory category = 1;
+	int64 eventsFrom = 2;
+	int64 eventsUntil = 3; 
+}
+
+message GetSpecificObjectMsg {
+	int32 classid = 1;
+	int32 attrribute = 2;	
+	string obisCode = 3;
+}
+
+message ProfileGenericDataMsg {
+	string obisCode = 1;
+	int64 dateFrom = 2;
+	int64 dateTo = 3;	
+}
+
+

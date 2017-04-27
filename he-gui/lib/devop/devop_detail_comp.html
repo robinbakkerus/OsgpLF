@@ -1,0 +1,25 @@
+<h2>Device operation detail </h2>
+
+Device {{devop.deviceId}}<br />
+Status {{devop.status}}<br />
+Correlation uid {{devop.correlId}}<br />
+<br />
+
+  <ul class="jobs">
+    {{response.status}}
+    <li *ngFor="let values of response.values" >
+      <span>{{values.action}}</span>
+      <span>{{values.status}}</span>
+
+      <ul class="jobs">
+        <li *ngFor="let props of values.properties" >
+          <div style="height=30px">
+            <span class="lm10"></span>
+            <span>{{props.key}}</span>
+            <span>{{props | pretty_props_value}}</span>
+          </div>
+        </li>
+      </ul>
+
+    </li>
+  </ul>

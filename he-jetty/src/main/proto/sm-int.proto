@@ -1,0 +1,97 @@
+
+syntax = "proto3";
+
+import "core.proto";
+import "dlms.proto";
+
+option java_multiple_files = true;
+option java_package = "com.alliander.osgp.dlms";
+option java_outer_classname = "OsgpSmIntProto";
+option objc_class_prefix = "HLW";
+
+package osgp2;
+
+//----- tabbelen tbv HeGui
+
+message JobMsg {
+	int64 id = 1;
+	string name = 2;
+	int64 recipeId = 3;
+	int64 deviceGroupId = 4;
+	int64 filterId = 5;
+	int64 creationTime = 7;
+	int64 modificationTime = 8;
+	string organisation = 9;
+	ResponseStatus status = 10;
+	int32 devopsTotal = 11;
+	int32 devopsSuccess = 12;
+	int32 devopsFailed = 13;
+	repeated DlmsActionMsg actions = 14;
+}
+
+
+message RecipeMsg {
+	int64 id = 1;
+	string name = 2;
+	string description = 3;
+	int64 creationTime = 4;
+	int64 modificationTime = 5;
+	repeated DlmsActionMsg actions = 6;
+}
+
+message DeviceGroupMsg {
+	int64 id = 1;
+	string name = 2;
+	string description = 3;
+	int64 creationTime = 4;
+	int64 modificationTime = 5;
+	repeated string deviceIds = 6;
+}
+
+//------- Msg die niet worden opgeslagen, maat gebruikt om data met Json naar HeGui te sturen
+
+message HeJobSumm {
+	int64 id = 1;
+	string name = 2;
+	string recipe = 3;
+	string deviceGroup = 4;
+	string filter = 5;
+	int64 creationTime = 7;
+	ResponseStatus status = 8;
+	int32 devopsTotal = 10;
+	int32 devopsSuccess = 11;
+	int32 devopsFailed = 12;
+}
+
+message HeJob {
+	int64 id = 1;
+	string name = 2;
+	int64 recipeId = 3;
+	string recipe = 4;
+	int64 devicegroupId = 5; 
+	string deviceGroup = 6;
+	int64 filterId = 7;
+	string filter = 8;
+	int64 creationTime = 9;
+	int64 modificationTime = 10;
+	ResponseStatus status = 11;
+	int32 devopsTotal = 12;
+	int32 devopsSuccess = 13;
+	int32 devopsFailed = 14;
+	repeated DlmsActionMsg actions = 15;
+	repeated HeDevOpSummMsg devops = 16;
+}
+
+message HeDevOpSummMsg {
+	string deviceId = 1;
+	string correlId = 2;
+	string status = 3;
+	string responseSummary = 4;	
+}
+
+message HeStatistics {
+	repeated StatsMsg stats = 1;
+	int32 timeSinceReset = 2;
+	int32 errorCount = 3;
+	int32 retryCount = 4;
+}

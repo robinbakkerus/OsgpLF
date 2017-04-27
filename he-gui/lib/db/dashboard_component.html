@@ -1,0 +1,9 @@
+<h3>Dashboard</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let job of jobs"  [routerLink]="['JobDetail', {id: job.id.toString()}]"  class="col-1-4">
+    <div class="module job">
+      <h4>{{job.name}}</h4>
+    </div>
+  </a>
+</div>
+<job-search></job-search>

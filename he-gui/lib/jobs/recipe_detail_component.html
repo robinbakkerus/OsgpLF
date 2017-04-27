@@ -1,0 +1,46 @@
+<h2>Recipe detail.</h2>
+
+<div>
+  <div class="label">Name:</div>
+  <material-input label="Name" class="c1" [(ngModel)]="recipe.name" placeholder="name"></material-input>
+  <div [ngClass]="nameClass()"></div>
+  <br>
+
+  <!-- actions -->
+  <div class="label">Actions:</div>
+  <div [ngClass]="actionListClass()"></div>
+  <br />
+
+    <ul>
+      <li *ngFor="let dlmsAction of recipe.actions" (click)="editAction(dlmsAction)" >
+        <div class="lm10"></div>
+        <div class="action"> {{dlmsAction.action.description()}} </div>
+        <div [ngClass]="actionClass(dlmsAction)"></div>
+      </li>
+    </ul>
+  <material-fab (trigger)="addAction()" class="fab-add"> <glyph icon="add"></glyph> </material-fab>
+
+  <!-- submit -->
+<br />
+  <material-button id="btnCancel" class="blue" (trigger)="cancel()"> Cancel </material-button>
+  <material-button id="btnSave" [disabled]="disableSaveBtn()" class="blue"
+    (trigger)="saveRecipe()"> Save </material-button>
+</div>
+
+<modal [visible]="showEditTask">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <my-action (closeActionDialogEvent)=closeActionDialog() [dlmsAction]="selectedAction">...</my-action>
+  </material-dialog>
+</modal>
+
+<modal [visible]="showSelectAction">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <ul class=no-bullet>
+      <li *ngFor="let action of allActions" >
+        <button type="button" on-click="selectAction(action)" >
+          {{action | pretty_request_type_name}}
+        </button>
+      </li>
+    </ul>
+  </material-dialog>
+</modal>

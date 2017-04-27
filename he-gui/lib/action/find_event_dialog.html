@@ -1,0 +1,35 @@
+<div *ngIf="findEvents != null">
+
+  <h2>{{title}}</h2>
+  <br /><br />
+  Category: <material-input label="Category" [(ngModel)]="findEvents.category" class="c1"
+    (click)="toggleShowCategories()" ></material-input><br>
+  <br />
+
+  From: <my-date-input id="dateFromId" [intDate]="findEvents.eventsFrom"
+    (changeValueEvent)="findEvents.eventsFrom=$event"> </my-date-input>
+  <br />
+
+  To: <my-date-input id="dateToId" [intDate]="findEvents.eventsUntil"
+    (changeValueEvent)="findEvents.eventsUntil=$event"> </my-date-input>
+  <br />
+</div>
+
+<modal [visible]="showCategories">
+  <material-dialog hideHeader="true" hideFooter="true">
+    <ul>
+        <li *ngFor="let cat of categories" >
+          <button type="button" on-click="selectCategory(cat)"  >
+            {{cat}}
+          </button>
+        </li>
+    </ul>
+  </material-dialog>
+</modal>
+
+<material-button (trigger)="closeDialog()"
+                 autoFocus
+                 raised
+                 class="blue">
+  Close
+</material-button>

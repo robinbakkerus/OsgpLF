@@ -1,0 +1,16 @@
+<h2>Statistics</h2>
+
+<table style="width:60%">
+  <!--
+ <tr>
+   <th>phase</th>
+   <th>count</th>
+ </tr>
+ -->
+ <tr *ngFor="let stat of statLines" >
+     <td>{{stat.label1}}</td>
+     <td>{{stat.count}}</td>
+ </tr>
+</table>
+<br />
+<button type="button" on-click="stopTimer()">Stop timer</button>

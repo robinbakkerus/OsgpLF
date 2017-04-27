@@ -1,0 +1,22 @@
+<div *ngIf="loadProfile != null">
+
+  <h2>{{title}}</h2>
+  <br /><br />
+  Obis code: <material-input label="Obis cide" [(ngModel)]="loadProfile.obisCode" class="c1" ></material-input><br>
+  <br />
+
+  From: <my-date-input id="dateFromId" [intDate]="loadProfile.dateFrom"
+    (changeValueEvent)="loadProfile.dateFrom=$event"> </my-date-input>
+  <br />
+
+  To: <my-date-input id="dateToId" [intDate]="loadProfile.dateTo"
+    (changeValueEvent)="loadProfile.dateTo=$event"> </my-date-input>
+  <br />
+</div>
+
+<material-button (trigger)="closeDialog()"
+                 autoFocus
+                 raised
+                 class="blue">
+  Close
+</material-button>

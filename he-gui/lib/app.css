@@ -1,0 +1,241 @@
+.main-header {
+  background-color: yellow;
+}
+
+body {
+    font: 16px Helvetica;
+    padding: 1px;
+    background: #999999;
+}
+
+#main {
+    min-height: 800px;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-flow: row;
+}
+
+#main > article {
+    margin: 4px;
+    padding: 5px;
+    border: 1px solid #cccc33;
+    border-radius: 7pt;
+    background: white;
+    flex: 3 1 60%;
+    order: 2;
+}
+
+#main > nav {
+    margin: 4px;
+    padding: 5px;
+    border: 1px solid #8888bb;
+    border-radius: 7pt;
+    background: #ccccff;
+    flex: 1 6 5%;
+    order: 1;
+}
+
+#main > aside {
+    margin: 4px;
+    padding: 5px;
+    border: 1px solid #8888bb;
+    border-radius: 7pt;
+    background: #ccccff;
+    flex: 1 6 5%;
+    order: 3;
+}
+
+header, footer {
+    display: block;
+    margin: 4px;
+    padding: 5px;
+    min-height: 100px;
+    border: 1px solid #eebb55;
+    border-radius: 7pt;
+    background: #ffeebb;
+}
+
+/* Too narrow to support three columns */
+ @media all and (max-width: 640px) {
+     #main, #page {
+         flex-direction: column;
+     }
+
+     #main > article, #main > nav, #main > aside {
+     /* Return them to document order */
+         order: 0;
+     }
+
+     #main > nav, #main > aside, header, footer {
+         min-height: 50px;
+         max-height: 50px;
+     }
+ }
+
+ .ng-valid {
+   display:inline-block;
+   width:10px;
+   height:16px;
+   border-left: 5px solid #42A948; /* green */
+ }
+
+ .ng-invalid {
+   display:inline-block;
+   width:10px;
+   height:16px;
+   border-left: 5px solid #a94442; /* red */
+ }
+
+ .ng-hidden {
+   display:inline-block;
+   width:10px;
+   height:16px;
+   border-left: 5px solid white;
+ }
+
+ .blue {
+   background-color: #2196F3;
+   color: white;
+ }
+
+ .blue[disabled] {
+   background-color: #85a394;
+   color: white;
+ }
+
+ .fab-add {
+   background-color: #2196F3;
+   color: white;
+   font-size=10px;
+ }
+
+ .fab-add[disabled] {
+   background-color: #85a394;
+   color: white;
+   font-size=10px;
+ }
+
+ .c1 {
+   padding: 1px;
+   height: 30px;
+ }
+
+ .jobs {
+   margin: 0 0 0.5em 0;
+   list-style-type: none;
+   padding: 0;
+   // width: 25em;
+ }
+ .jobs li {
+   cursor: pointer;
+   position: relative;
+   left: 0;
+   background-color: #EEE;
+   margin: .1em;
+   padding: .1em 0;
+   // height: 1.6em;
+   border-radius: 4px;
+ }
+ .jobs li:hover {
+   color: #607D8B;
+   background-color: #DDD;
+   left: .1em;
+ }
+ .jobs li.selected:hover {
+   background-color: #BBD8DC !important;
+   color: white;
+ }
+ .jobs .text {
+   position: relative;
+   top: -3px;
+ }
+ .jobs .badge {
+   display: inline-block;
+   font-size: small;
+   color: white;
+   padding: 0.2em 0.2em 0 0.2em;
+   background-color: #607D8B;
+   line-height: 1em;
+   position: relative;
+   left: -1px;
+   top: -1px;
+   height: 1.5em;
+   margin-right: .8em;
+   border-radius: 4px 0 0 4px;
+   width: 150px;
+ }
+
+ .no-bullet {
+  list-style-type: none;
+}
+
+.label {
+  display:inline-block;
+  padding: 1px;
+  height: 24px;
+  width:50px;
+  color: black;
+}
+
+.action {
+    display:inline-block;
+    width: 200px;
+    height: 35px;
+    margin-left: : 10px;
+}
+
+.lm10 {
+    display:inline-block;
+    width: 10px;
+}
+
+.table {
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.header {
+  background-color: #eee;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.header .col {
+  font-weight: bold;
+}
+
+mail-nav-bar {
+  display: block;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.content {
+  overflow: auto;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  position: relative;
+}
+
+.content .row:hover {
+  background: #f8f8f8;
+}
+
+.content .row.selected {
+  background: #adcce7;
+  border-top: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+.col {
+  padding: 4px 2px 4px 8px;
+}
+
+.w100 {
+  width : 800px;
+}

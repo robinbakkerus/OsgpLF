@@ -1,0 +1,25 @@
+<div>
+    <material-tab-panel>
+        <material-tab label="Job detail">
+          <div *ngIf="job != null">
+              <h2>{{job.name}} details!</h2>
+              <div>
+                  <label>name: </label>{{job.name}}
+              </div>
+              <div>
+                  <label>status: </label>: {{job.status}}
+              </div>
+
+              <button (click)="goBack()">Back</button>
+          </div>
+        </material-tab>
+        <material-tab label="Devices">
+          Todo
+        </material-tab>
+        <material-tab label="Operations">
+          <div *ngIf="job != null">
+            <my-job-devops [job]="job">..</my-job-devops>
+          </div>
+        </material-tab>
+    </material-tab-panel>
+</div>
